@@ -1,56 +1,314 @@
-
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WaiverGuard - نظام إخلاء المسؤولية</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-      body {
-        font-family: 'Cairo', sans-serif;
-      }
-      .signature-canvas {
-        touch-action: none;
-      }
-      /* Styles for the hidden PDF template */
-      #pdf-template {
-        position: absolute;
-        left: -9999px;
-        top: -9999px;
-        width: 800px;
-        padding: 40px;
-        background: white;
-        color: black;
-      }
-      .google-btn-container {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-      }
-    </style>
-
-<link rel="stylesheet" href="/index.css">
-  <script type="importmap">
-{
-  "imports": {
-    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "react/": "https://esm.sh/react@^19.2.4/",
-    "react": "https://esm.sh/react@^19.2.4",
-    "jspdf": "https://esm.sh/jspdf@^2.5.1",
-    "html2canvas": "https://esm.sh/html2canvas@^1.4.1",
-    "jwt-decode": "https://esm.sh/jwt-decode@^4.0.0"
-  }
-}
-</script>
-  <script type="module" crossorigin src="/assets/index-DCQY4w6X.js"></script>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Liability Waiver & Release System</title>
+    
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- html2pdf.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <link rel="stylesheet" href="style.css">
 </head>
-  <body class="bg-gray-50 text-gray-900">
-    <div id="root"></div>
-    <!-- Hidden template for PDF generation -->
-    <div id="pdf-template"></div>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation (History and Info) -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <i data-lucide="shield-check" class="brand-icon"></i>
+                    <span>WaiverGuard</span>
+                </div>
+            </div>
+            <div class="sidebar-content">
+                <div class="nav-tabs">
+                    <button class="tab-btn active" id="tab-new-waiver">
+                        <i data-lucide="file-signature"></i> New Waiver
+                    </button>
+                    <button class="tab-btn" id="tab-history">
+                        <i data-lucide="history"></i> History
+                        <span class="badge" id="history-count">0</span>
+                    </button>
+                </div>
+                
+                <!-- Quick Info Card -->
+                <div class="info-card">
+                    <h3><i data-lucide="info"></i> Quick Guide</h3>
+                    <p>Complete all fields, capture client's photo, obtain their signature, and click "Save & Download" to generate the PDF.</p>
+                </div>
+            </div>
+            <div class="sidebar-footer">
+                <p>&copy; 2026 WaiverGuard v2.0</p>
+            </div>
+        </aside>
+
+        <!-- Main Workspace Area -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <h1>Liability Waiver Agreement</h1>
+                <div class="header-actions">
+                    <span class="date-badge"><i data-lucide="calendar"></i> <span id="current-date">--/--/----</span></span>
+                </div>
+            </header>
+
+            <!-- Screen 1: Form & Capture (Active Workspace) -->
+            <section class="screen-section active" id="screen-form">
+                <form id="waiver-form" onsubmit="return false;">
+                    <div class="form-grid">
+                        <!-- Left Panel: Details Form -->
+                        <div class="card form-card">
+                            <div class="card-header">
+                                <i data-lucide="user"></i>
+                                <h2>Customer Information</h2>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="customer-name">Full Name <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i data-lucide="user" class="input-icon"></i>
+                                    <input type="text" id="customer-name" required placeholder="Enter customer's full name">
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="phone-number">Phone Number <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i data-lucide="phone" class="input-icon"></i>
+                                    <input type="tel" id="phone-number" required placeholder="e.g. +1 555-0199">
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="document-id">National ID / Passport Number <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i data-lucide="credit-card" class="input-icon"></i>
+                                    <input type="text" id="document-id" required placeholder="Enter ID or passport number">
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label>Gender <span class="required">*</span></label>
+                                <div class="gender-cards">
+                                    <label class="gender-card">
+                                        <input type="radio" name="gender" value="Male" required checked>
+                                        <div class="gender-card-content">
+                                            <i data-lucide="user"></i>
+                                            <span>Male</span>
+                                        </div>
+                                    </label>
+                                    <label class="gender-card">
+                                        <input type="radio" name="gender" value="Female" required>
+                                        <div class="gender-card-content">
+                                            <i data-lucide="user-round"></i>
+                                            <span>Female</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="staff-name">Responsible Staff Name <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i data-lucide="briefcase" class="input-icon"></i>
+                                    <input type="text" id="staff-name" required placeholder="Enter your name">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Panel: Camera & Signature Capture -->
+                        <div class="column-grid">
+                            <!-- Camera Card -->
+                            <div class="card camera-card">
+                                <div class="card-header">
+                                    <i data-lucide="camera"></i>
+                                    <h2>Photo Capture <span class="required">*</span></h2>
+                                </div>
+                                <div class="camera-workspace">
+                                    <div class="video-container" id="video-container">
+                                        <video id="camera-stream" autoplay playsinline muted></video>
+                                        <canvas id="photo-canvas" style="display: none;"></canvas>
+                                        <img id="captured-preview" alt="Preview" style="display: none;">
+                                        
+                                        <!-- Overlay prompts -->
+                                        <div class="camera-overlay" id="camera-overlay">
+                                            <i data-lucide="aperture" class="pulse"></i>
+                                            <span>Click "Start Camera"</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="camera-controls">
+                                        <button type="button" class="btn btn-secondary" id="btn-toggle-camera">
+                                            <i data-lucide="video"></i> Start Camera
+                                        </button>
+                                        <button type="button" class="btn btn-primary" id="btn-snap" style="display: none;">
+                                            <i data-lucide="camera"></i> Take Photo
+                                        </button>
+                                        <button type="button" class="btn btn-secondary" id="btn-retake" style="display: none;">
+                                            <i data-lucide="rotate-ccw"></i> Retake
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Signature Card -->
+                            <div class="card signature-card">
+                                <div class="card-header">
+                                    <i data-lucide="pen-tool"></i>
+                                    <h2>Customer Signature <span class="required">*</span></h2>
+                                </div>
+                                <div class="signature-workspace">
+                                    <div class="canvas-container">
+                                        <canvas id="sig-canvas"></canvas>
+                                        <div class="canvas-hint">Sign inside the box</div>
+                                    </div>
+                                    <div class="signature-controls">
+                                        <button type="button" class="btn btn-secondary" id="btn-clear-sig">
+                                            <i data-lucide="trash-2"></i> Clear
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Terms Agreement Card -->
+                    <div class="card terms-card">
+                        <div class="card-header">
+                            <i data-lucide="shield-alert"></i>
+                            <h2>Terms of Waiver & Liability Release</h2>
+                        </div>
+                        <div class="terms-text">
+                            <p><strong>1. Risks Acknowledgment:</strong> I, the undersigned, hereby acknowledge and agree that participation in the activities, games, and facilities involves inherent risks of physical injury, illness, or property damage. I assume full responsibility for any and all risks of bodily injury or death arising out of or related to my participation.</p>
+                            <p><strong>2. Compliance with Rules:</strong> I agree to strictly adhere to all safety guidelines, rules, and staff instructions during my time at the facility. Failure to comply may result in immediate expulsion without refund.</p>
+                            <p><strong>3. Liability Release:</strong> I hereby release, waive, discharge, and covenant not to sue the management, staff, owners, and affiliates from any and all liability, claims, demands, or actions arising out of any loss, damage, or injury that may be sustained by me while on the premises.</p>
+                        </div>
+                        <div class="agreement-checkbox">
+                            <input type="checkbox" id="terms-checkbox" required>
+                            <label for="terms-checkbox">I have read, understood, and agree to the above terms and conditions.</label>
+                        </div>
+                    </div>
+
+                    <!-- Submit Actions -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-large btn-accent" id="btn-submit-waiver">
+                            <i data-lucide="save"></i> Save & Download PDF
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Screen 2: Saved History -->
+            <section class="screen-section" id="screen-history">
+                <div class="card history-card">
+                    <div class="card-header history-header">
+                        <div class="title-group">
+                            <i data-lucide="database"></i>
+                            <h2>Saved Waivers Log</h2>
+                        </div>
+                        <div class="search-box">
+                            <i data-lucide="search"></i>
+                            <input type="text" id="history-search" placeholder="Search by name, ID, or phone...">
+                        </div>
+                    </div>
+                    
+                    <div class="history-list-wrapper">
+                        <table class="history-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Customer Name</th>
+                                    <th>Phone Number</th>
+                                    <th>ID / Passport</th>
+                                    <th>Gender</th>
+                                    <th>Responsible Staff</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-table-body">
+                                <!-- Dynamic Rows -->
+                            </tbody>
+                        </table>
+                        <div class="empty-history" id="empty-history">
+                            <i data-lucide="folder-open"></i>
+                            <p>No waivers saved yet.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Hidden Print/Export Layout for PDF Generation -->
+    <div id="pdf-template" style="display: none;">
+        <div class="pdf-container">
+            <div class="pdf-header">
+                <h2>WaiverGuard System</h2>
+                <h3>Liability Waiver & Release Certificate</h3>
+            </div>
+            
+            <div class="pdf-meta">
+                <div><strong>Date/Time:</strong> <span id="pdf-meta-date"></span></div>
+                <div><strong>Responsible Staff:</strong> <span id="pdf-meta-staff"></span></div>
+            </div>
+
+            <div class="pdf-section">
+                <h4>Customer Details</h4>
+                <table class="pdf-table">
+                    <tr>
+                        <td width="30%"><strong>Full Name:</strong></td>
+                        <td width="70%" id="pdf-val-name"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Phone Number:</strong></td>
+                        <td id="pdf-val-phone"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>National ID / Passport:</strong></td>
+                        <td id="pdf-val-id"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gender:</strong></td>
+                        <td id="pdf-val-gender"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="pdf-section pdf-photo-sig-section">
+                <div class="pdf-box">
+                    <h4>Customer Photo</h4>
+                    <div class="pdf-photo-wrapper">
+                        <img id="pdf-val-photo" src="" alt="Client Photo">
+                    </div>
+                </div>
+                <div class="pdf-box">
+                    <h4>Customer Signature</h4>
+                    <div class="pdf-sig-wrapper">
+                        <img id="pdf-val-sig" src="" alt="Client Signature">
+                    </div>
+                </div>
+            </div>
+
+            <div class="pdf-section">
+                <h4>Agreement Terms & Release of Liability</h4>
+                <div class="pdf-terms-text">
+                    <p>I hereby confirm that I have read, understood, and agreed to all terms of this liability waiver agreement. I acknowledge that the activities involve risks, comply with all safety regulations, and release WaiverGuard and its staff from all liability, claims, or actions for personal injury, illness, or property damage sustained while on the premises.</p>
+                </div>
+                <div class="pdf-confirmation-badge">
+                    <span>STATUS: AGREED & SIGNED ELECTRONICALLY ✓</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
 </body>
 </html>
