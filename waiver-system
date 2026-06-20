@@ -1,0 +1,1321 @@
+/* Custom CSS Design System: Sleek Dark Midnight Theme */
+
+:root {
+    --bg-main: #0a0f1d;
+    --bg-card: rgba(20, 28, 48, 0.6);
+    --bg-card-hover: rgba(25, 36, 62, 0.8);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --border-focus: #48cae4;
+    
+    --text-primary: #f8f9fa;
+    --text-secondary: #a0aec0;
+    --text-muted: #718096;
+    
+    --primary: #0077b6;
+    --primary-hover: #0096c7;
+    --accent: #48cae4;
+    --accent-hover: #90e0ef;
+    --accent-glow: rgba(72, 202, 228, 0.25);
+    
+    --success: #2ec4b6;
+    --error: #e63946;
+    --warning: #ffb703;
+    
+    --font-main: 'Outfit', sans-serif;
+    
+    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+    
+    --glass-blur: blur(12px);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reset & Scrollbar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.5;
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-main);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}
+
+/* Application Layout */
+.app-container {
+    display: flex;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 280px;
+    background-color: rgba(10, 15, 30, 0.95);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1.5rem;
+    position: fixed;
+    height: 100vh;
+    z-index: 100;
+    transition: var(--transition-smooth);
+}
+
+.sidebar-header {
+    margin-bottom: 3rem;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+}
+
+.brand-icon {
+    color: var(--accent);
+    width: 32px;
+    height: 32px;
+}
+
+.sidebar-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.nav-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.tab-btn {
+    background: none;
+    border: 1px solid transparent;
+    padding: 0.85rem 1.25rem;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: var(--font-main);
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-align: left;
+    transition: var(--transition-smooth);
+}
+
+.tab-btn i {
+    width: 20px;
+    height: 20px;
+}
+
+.tab-btn:hover {
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-primary);
+}
+
+.tab-btn.active {
+    background: rgba(72, 202, 228, 0.1);
+    border-color: rgba(72, 202, 228, 0.2);
+    color: var(--accent);
+    box-shadow: inset 0 0 10px rgba(72, 202, 228, 0.05);
+}
+
+.tab-btn .badge {
+    margin-left: auto;
+    background: var(--accent);
+    color: var(--bg-main);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.15rem 0.5rem;
+    border-radius: 20px;
+}
+
+.info-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    padding: 1.25rem;
+    border-radius: 16px;
+    margin-top: auto;
+}
+
+.info-card h3 {
+    font-size: 0.95rem;
+    color: var(--warning);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.info-card h3 i {
+    width: 16px;
+    height: 16px;
+}
+
+.info-card p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+.sidebar-footer {
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+/* Main Workspace Area */
+.main-content {
+    flex: 1;
+    margin-left: 280px;
+    padding: 2.5rem 3rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    background: radial-gradient(circle at top right, rgba(72, 202, 228, 0.05), transparent 60%);
+    transition: var(--transition-smooth);
+}
+
+/* Header */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.main-header h1 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.date-badge {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    padding: 0.6rem 1rem;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.date-badge i {
+    width: 16px;
+    height: 16px;
+}
+
+/* Screen Sections */
+.screen-section {
+    display: none;
+    animation: fadeIn 0.4s ease forwards;
+}
+
+.screen-section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Cards & Containers */
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    padding: 2rem;
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-smooth);
+}
+
+.card:hover {
+    background: var(--bg-card-hover);
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.75rem;
+    color: var(--text-primary);
+}
+
+.card-header i {
+    color: var(--accent);
+    width: 24px;
+    height: 24px;
+}
+
+.card-header h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+/* Grid Layouts */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.column-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Input Fields */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.input-group label .required {
+    color: var(--error);
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1.5px solid var(--border-color);
+    border-radius: 12px;
+    padding: 0.85rem 1rem 0.85rem 2.75rem;
+    color: var(--text-primary);
+    font-family: var(--font-main);
+    font-size: 1rem;
+    outline: none;
+    transition: var(--transition-smooth);
+}
+
+.input-wrapper input::placeholder {
+    color: var(--text-muted);
+}
+
+.input-wrapper input:focus {
+    border-color: var(--border-focus);
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow: 0 0 0 4px var(--accent-glow);
+}
+
+.input-icon {
+    position: absolute;
+    left: 1rem;
+    color: var(--text-muted);
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+    transition: var(--transition-smooth);
+}
+
+.input-wrapper input:focus + .input-icon {
+    color: var(--accent);
+}
+
+/* Custom Gender Selection Cards */
+.gender-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.gender-card {
+    cursor: pointer;
+    position: relative;
+}
+
+.gender-card input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.gender-card-content {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1.5px solid var(--border-color);
+    border-radius: 14px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    transition: var(--transition-smooth);
+}
+
+.gender-card-content i {
+    width: 24px;
+    height: 24px;
+}
+
+.gender-card-content span {
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.gender-card input:checked + .gender-card-content {
+    border-color: var(--accent);
+    background: rgba(72, 202, 228, 0.08);
+    color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-glow);
+}
+
+/* Camera Workspace */
+.camera-workspace {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    align-items: center;
+}
+
+.video-container {
+    width: 100%;
+    aspect-ratio: 4/3;
+    max-width: 400px;
+    background: #000;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    border: 2px dashed rgba(255, 255, 255, 0.15);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#camera-stream, #captured-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.camera-overlay {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-secondary);
+    z-index: 10;
+}
+
+.camera-overlay i {
+    width: 48px;
+    height: 48px;
+    color: var(--accent);
+}
+
+.pulse {
+    animation: pulseGlow 2s infinite;
+}
+
+@keyframes pulseGlow {
+    0% {
+        transform: scale(0.95);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0.95);
+        opacity: 0.5;
+    }
+}
+
+.camera-controls {
+    display: flex;
+    gap: 0.75rem;
+    width: 100%;
+    justify-content: center;
+}
+
+/* Signature Canvas */
+.signature-workspace {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.canvas-container {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    background: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 2px solid var(--border-color);
+}
+
+#sig-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    cursor: crosshair;
+    touch-action: none; /* Crucial for tablets & iPad touch signature drag */
+}
+
+.canvas-hint {
+    position: absolute;
+    bottom: 0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #a0aec0;
+    pointer-events: none;
+}
+
+.signature-controls {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Terms Card */
+.terms-card {
+    margin-bottom: 2rem;
+}
+
+.terms-text {
+    height: 200px;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-color);
+    padding: 1.25rem;
+    border-radius: 14px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.terms-text p strong {
+    color: var(--text-primary);
+}
+
+.agreement-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+}
+
+.agreement-checkbox input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    accent-color: var(--accent);
+    cursor: pointer;
+}
+
+/* Buttons System */
+.btn {
+    font-family: var(--font-main);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: var(--transition-smooth);
+    outline: none;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.btn-accent {
+    background: var(--accent);
+    color: var(--bg-main);
+}
+
+.btn-accent:hover {
+    background: var(--accent-hover);
+    box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.btn-large {
+    padding: 1.1rem 2.5rem;
+    font-size: 1.1rem;
+    border-radius: 16px;
+    width: 100%;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: center;
+}
+
+/* History Screen */
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.title-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.title-group i {
+    color: var(--accent);
+}
+
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    max-width: 320px;
+    width: 100%;
+}
+
+.search-box input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1.5px solid var(--border-color);
+    border-radius: 12px;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    color: var(--text-primary);
+    font-family: var(--font-main);
+    font-size: 0.95rem;
+    outline: none;
+    transition: var(--transition-smooth);
+}
+
+.search-box input:focus {
+    border-color: var(--border-focus);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.search-box i {
+    position: absolute;
+    left: 0.85rem;
+    color: var(--text-muted);
+    width: 16px;
+    height: 16px;
+}
+
+.history-list-wrapper {
+    overflow-x: auto;
+    margin-top: 1.5rem;
+}
+
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.history-table th {
+    padding: 1rem;
+    border-bottom: 2px solid var(--border-color);
+    color: var(--text-secondary);
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.history-table td {
+    padding: 1.25rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.95rem;
+    color: var(--text-primary);
+}
+
+.history-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.01);
+}
+
+.empty-history {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 0;
+    color: var(--text-muted);
+    gap: 1rem;
+}
+
+.empty-history i {
+    width: 48px;
+    height: 48px;
+}
+
+.action-btns {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 8px;
+    color: var(--text-secondary);
+    transition: var(--transition-smooth);
+}
+
+.btn-icon:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.btn-icon.download:hover {
+    color: var(--accent);
+}
+
+.btn-icon.delete:hover {
+    color: var(--error);
+}
+
+/* PDF Template Formatting Styles */
+.pdf-container {
+    padding: 40px;
+    background: #ffffff;
+    color: #0b132b;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.pdf-header {
+    text-align: center;
+    border-bottom: 3px solid #0077b6;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.pdf-header h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #0b132b;
+    margin: 0;
+}
+
+.pdf-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #495057;
+    margin: 5px 0 0 0;
+}
+
+.pdf-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #6c757d;
+    margin-bottom: 20px;
+}
+
+.pdf-section {
+    margin-bottom: 25px;
+}
+
+.pdf-section h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0077b6;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.pdf-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.pdf-table td {
+    padding: 8px;
+    border-bottom: 1px solid #f1f3f5;
+}
+
+.pdf-photo-sig-section {
+    display: flex;
+    gap: 30px;
+}
+
+.pdf-box {
+    flex: 1;
+}
+
+.pdf-photo-wrapper, .pdf-sig-wrapper {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f9fa;
+    overflow: hidden;
+}
+
+.pdf-photo-wrapper img, .pdf-sig-wrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.pdf-terms-text {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 11px;
+    color: #495057;
+    text-align: justify;
+}
+
+.pdf-confirmation-badge {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.pdf-confirmation-badge span {
+    display: inline-block;
+    background: #e8f5e9;
+    color: #2e7d32;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: 1px solid #c8e6c9;
+}
+
+/* Tablet & iPad Responsiveness (Crucial for Touchscreen Devices) */
+@media screen and (max-width: 1024px) {
+    .app-container {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 1.5rem;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    .sidebar-header {
+        margin-bottom: 0;
+    }
+    
+    .sidebar-content {
+        flex: initial;
+        flex-direction: row;
+        align-items: center;
+        gap: 1.5rem;
+        margin-top: 0;
+    }
+    
+    .nav-tabs {
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+    
+    .info-card {
+        display: none; /* Hide helper card on tablets/mobiles to save height */
+    }
+    
+    .sidebar-footer {
+        display: none;
+    }
+    
+    .main-content {
+        margin-left: 0;
+        padding: 2rem;
+    }
+    
+    .form-grid {
+        grid-template-columns: 1fr; /* Single column layout for form grids */
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .main-content {
+        padding: 1.25rem;
+    }
+    
+    .main-header h1 {
+        font-size: 1.75rem;
+    }
+    
+    .card {
+        padding: 1.5rem;
+    }
+    
+    .gender-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .video-container {
+        max-width: 100%;
+    }
+}
+
+# Liability Waiver & Release System
+
+A premium, fully responsive, and mobile-optimized web application for managing customer liability waivers. Designed specifically for touchscreen devices such as **iPads and tablets**, as well as desktop computers.
+
+## 🚀 Live Demo & Hosting
+Since iOS and Android devices require a secure context (**HTTPS**) to access media devices (camera), you must host this project on a secure web server to capture photos on iPads/tablets. 
+
+The easiest way to host this for free is using **GitHub Pages**:
+1. Upload this repository to GitHub.
+2. Go to **Settings** > **Pages** in your GitHub repository.
+3. Under **Build and deployment**, set the source to **Deploy from a branch**.
+4. Select the **main** (or **master**) branch and the `/root` folder, then click **Save**.
+5. Your site will be live at `https://<your-username>.github.io/<your-repository-name>/` in a few minutes.
+
+---
+
+## ✨ Features
+- **Client Information Form**: Fields for Full Name, Phone Number, National ID/Passport, Gender (interactive cards), and staff name.
+- **Camera Capture**: Directly accesses the tablet/phone camera to snap client photos and preview them.
+- **Digital Touch Signature**: Touch-friendly canvas signature box, optimized for iPad styluses and touch inputs, with automatic screen-scroll locking while drawing.
+- **Local Persistence Log**: Saves all signed waivers locally in the browser's `localStorage` for offline review.
+- **Auto-Generated PDF**: Automatically builds a formatted corporate certificate with the client's information, photo, and signature, and downloads it directly as a PDF named `[customer_name]_[date].pdf`.
+
+---
+
+## 📂 Project Structure
+- `index.html` - Application layout, form elements, and print template.
+- `style.css` - Modern dark midnight glassmorphism theme and media queries.
+- `app.js` - Camera stream, canvas signature physics, localStorage CRUD, and html2pdf compiling.
+- `server.ps1` - Lightweight PowerShell script to serve files locally on `http://localhost:8080/`.
+
+---
+
+## 🛠️ Local Development (Offline testing)
+Double-click `server.ps1` (or run it in PowerShell) to launch a local web server at:
+[http://localhost:8080/](http://localhost:8080/)
+
+# Local system files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Editor configurations
+.vscode/
+.idea/
+
+# Local server log files
+*.log
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Liability Waiver & Release System</title>
+    
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- html2pdf.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation (History and Info) -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <i data-lucide="shield-check" class="brand-icon"></i>
+                    <span>WaiverGuard</span>
+                </div>
+            </div>
+            <div class="sidebar-content">
+                <div class="nav-tabs">
+                    <button class="tab-btn active" id="tab-new-waiver">
+                        <i data-lucide="file-signature"></i> New Waiver
+                    </button>
+                    <button class="tab-btn" id="tab-history">
+                        <i data-lucide="history"></i> History
+                        <span class="badge" id="history-count">0</span>
+                    </button>
+                </div>
+                
+                <!-- Quick Info Card -->
+                <div class="info-card">
+                    <h3><i data-lucide="info"></i> Quick Guide</h3>
+                    <p>Complete all fields, capture client's photo, obtain their signature, and click "Save & Download" to generate the PDF.</p>
+                </div>
+            </div>
+            <div class="sidebar-footer">
+                <p>&copy; 2026 WaiverGuard v2.0</p>
+            </div>
+        </aside>
+
+        <!-- Main Workspace Area -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <h1>Liability Waiver Agreement</h1>
+                <div class="header-actions">
+                    <span class="date-badge"><i data-lucide="calendar"></i> <span id="current-date">--/--/----</span></span>
+                </div>
+            </header>
+
+            <!-- Screen 1: Form & Capture (Active Workspace) -->
+            <section class="screen-section active" id="screen-form">
+                <form id="waiver-form" onsubmit="return false;">
+                    <div class="form-grid">
+                        <!-- Left Panel: Details Form -->
+                        <div class="card form-card">
+                            <div class="card-header">
+                                <i data-lucide="user"></i>
+                                <h2>Customer Information</h2>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="customer-name">Full Name <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i data-lucide="user" class="input-icon"></i>
+                                    <input type="text" id="customer-name" required placeholder="Enter customer's full name">
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="phone-number">Phone Number <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i data-lucide="phone" class="input-icon"></i>
+                                    <input type="tel" id="phone-number" required placeholder="e.g. +1 555-0199">
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="document-id">National ID / Passport Number <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i data-lucide="credit-card" class="input-icon"></i>
+                                    <input type="text" id="document-id" required placeholder="Enter ID or passport number">
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label>Gender <span class="required">*</span></label>
+                                <div class="gender-cards">
+                                    <label class="gender-card">
+                                        <input type="radio" name="gender" value="Male" required checked>
+                                        <div class="gender-card-content">
+                                            <i data-lucide="user"></i>
+                                            <span>Male</span>
+                                        </div>
+                                    </label>
+                                    <label class="gender-card">
+                                        <input type="radio" name="gender" value="Female" required>
+                                        <div class="gender-card-content">
+                                            <i data-lucide="user-round"></i>
+                                            <span>Female</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="staff-name">Responsible Staff Name <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i data-lucide="briefcase" class="input-icon"></i>
+                                    <input type="text" id="staff-name" required placeholder="Enter your name">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Panel: Camera & Signature Capture -->
+                        <div class="column-grid">
+                            <!-- Camera Card -->
+                            <div class="card camera-card">
+                                <div class="card-header">
+                                    <i data-lucide="camera"></i>
+                                    <h2>Photo Capture <span class="required">*</span></h2>
+                                </div>
+                                <div class="camera-workspace">
+                                    <div class="video-container" id="video-container">
+                                        <video id="camera-stream" autoplay playsinline muted></video>
+                                        <canvas id="photo-canvas" style="display: none;"></canvas>
+                                        <img id="captured-preview" alt="Preview" style="display: none;">
+                                        
+                                        <!-- Overlay prompts -->
+                                        <div class="camera-overlay" id="camera-overlay">
+                                            <i data-lucide="aperture" class="pulse"></i>
+                                            <span>Click "Start Camera"</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="camera-controls">
+                                        <button type="button" class="btn btn-secondary" id="btn-toggle-camera">
+                                            <i data-lucide="video"></i> Start Camera
+                                        </button>
+                                        <button type="button" class="btn btn-primary" id="btn-snap" style="display: none;">
+                                            <i data-lucide="camera"></i> Take Photo
+                                        </button>
+                                        <button type="button" class="btn btn-secondary" id="btn-retake" style="display: none;">
+                                            <i data-lucide="rotate-ccw"></i> Retake
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Signature Card -->
+                            <div class="card signature-card">
+                                <div class="card-header">
+                                    <i data-lucide="pen-tool"></i>
+                                    <h2>Customer Signature <span class="required">*</span></h2>
+                                </div>
+                                <div class="signature-workspace">
+                                    <div class="canvas-container">
+                                        <canvas id="sig-canvas"></canvas>
+                                        <div class="canvas-hint">Sign inside the box</div>
+                                    </div>
+                                    <div class="signature-controls">
+                                        <button type="button" class="btn btn-secondary" id="btn-clear-sig">
+                                            <i data-lucide="trash-2"></i> Clear
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Terms Agreement Card -->
+                    <div class="card terms-card">
+                        <div class="card-header">
+                            <i data-lucide="shield-alert"></i>
+                            <h2>Terms of Waiver & Liability Release</h2>
+                        </div>
+                        <div class="terms-text">
+                            <p><strong>1. Risks Acknowledgment:</strong> I, the undersigned, hereby acknowledge and agree that participation in the activities, games, and facilities involves inherent risks of physical injury, illness, or property damage. I assume full responsibility for any and all risks of bodily injury or death arising out of or related to my participation.</p>
+                            <p><strong>2. Compliance with Rules:</strong> I agree to strictly adhere to all safety guidelines, rules, and staff instructions during my time at the facility. Failure to comply may result in immediate expulsion without refund.</p>
+                            <p><strong>3. Liability Release:</strong> I hereby release, waive, discharge, and covenant not to sue the management, staff, owners, and affiliates from any and all liability, claims, demands, or actions arising out of any loss, damage, or injury that may be sustained by me while on the premises.</p>
+                        </div>
+                        <div class="agreement-checkbox">
+                            <input type="checkbox" id="terms-checkbox" required>
+                            <label for="terms-checkbox">I have read, understood, and agree to the above terms and conditions.</label>
+                        </div>
+                    </div>
+
+                    <!-- Submit Actions -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-large btn-accent" id="btn-submit-waiver">
+                            <i data-lucide="save"></i> Save & Download PDF
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Screen 2: Saved History -->
+            <section class="screen-section" id="screen-history">
+                <div class="card history-card">
+                    <div class="card-header history-header">
+                        <div class="title-group">
+                            <i data-lucide="database"></i>
+                            <h2>Saved Waivers Log</h2>
+                        </div>
+                        <div class="search-box">
+                            <i data-lucide="search"></i>
+                            <input type="text" id="history-search" placeholder="Search by name, ID, or phone...">
+                        </div>
+                    </div>
+                    
+                    <div class="history-list-wrapper">
+                        <table class="history-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Customer Name</th>
+                                    <th>Phone Number</th>
+                                    <th>ID / Passport</th>
+                                    <th>Gender</th>
+                                    <th>Responsible Staff</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-table-body">
+                                <!-- Dynamic Rows -->
+                            </tbody>
+                        </table>
+                        <div class="empty-history" id="empty-history">
+                            <i data-lucide="folder-open"></i>
+                            <p>No waivers saved yet.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Hidden Print/Export Layout for PDF Generation -->
+    <div id="pdf-template" style="display: none;">
+        <div class="pdf-container">
+            <div class="pdf-header">
+                <h2>WaiverGuard System</h2>
+                <h3>Liability Waiver & Release Certificate</h3>
+            </div>
+            
+            <div class="pdf-meta">
+                <div><strong>Date/Time:</strong> <span id="pdf-meta-date"></span></div>
+                <div><strong>Responsible Staff:</strong> <span id="pdf-meta-staff"></span></div>
+            </div>
+
+            <div class="pdf-section">
+                <h4>Customer Details</h4>
+                <table class="pdf-table">
+                    <tr>
+                        <td width="30%"><strong>Full Name:</strong></td>
+                        <td width="70%" id="pdf-val-name"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Phone Number:</strong></td>
+                        <td id="pdf-val-phone"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>National ID / Passport:</strong></td>
+                        <td id="pdf-val-id"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gender:</strong></td>
+                        <td id="pdf-val-gender"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="pdf-section pdf-photo-sig-section">
+                <div class="pdf-box">
+                    <h4>Customer Photo</h4>
+                    <div class="pdf-photo-wrapper">
+                        <img id="pdf-val-photo" src="" alt="Client Photo">
+                    </div>
+                </div>
+                <div class="pdf-box">
+                    <h4>Customer Signature</h4>
+                    <div class="pdf-sig-wrapper">
+                        <img id="pdf-val-sig" src="" alt="Client Signature">
+                    </div>
+                </div>
+            </div>
+
+            <div class="pdf-section">
+                <h4>Agreement Terms & Release of Liability</h4>
+                <div class="pdf-terms-text">
+                    <p>I hereby confirm that I have read, understood, and agreed to all terms of this liability waiver agreement. I acknowledge that the activities involve risks, comply with all safety regulations, and release WaiverGuard and its staff from all liability, claims, or actions for personal injury, illness, or property damage sustained while on the premises.</p>
+                </div>
+                <div class="pdf-confirmation-badge">
+                    <span>STATUS: AGREED & SIGNED ELECTRONICALLY ✓</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
